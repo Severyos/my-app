@@ -1,41 +1,136 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import { styled } from '@mui/system';
-import logo from '../assets/600f02fca5bbffc0915b9833_humanprogress_logo_450.jpg';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import logo from '../assets/humanprogress.png'; // Ensure this image has a transparent background
 
-const NavLink = styled(Link)({
-  color: '#00416A', // Darker blue text color
-  textDecoration: 'none',
-  fontSize: '1.1rem',
-  marginLeft: 20,
-  fontWeight: 'bold', // Bold text
-});
-
-const Logo = styled('img')({
-  height: 40,
-  marginRight: 'auto',
-});
-
-const WhiteNavbar = styled(AppBar)({
-  backgroundColor: '#fff',
-});
-
-const Navbar = () => {
+// Define the Navbar component
+const MyNavbar = () => {
   return (
-    <WhiteNavbar position="static">
-      <Toolbar>
-        <Link to="/home">
-          <Logo src={logo} alt="My App Logo" />
-        </Link>
-        <NavLink to="/boende">Boenden</NavLink>
-        <NavLink to="/contact">Kontakt</NavLink>
-        <NavLink to="/about">Om oss</NavLink>
-        <NavLink to="/human">Mer</NavLink>
-      </Toolbar>
-    </WhiteNavbar>
+    <Navbar bg="light" expand="lg">
+      <Container fluid>
+        <Navbar.Brand style={{ marginRight: '50px' }} href="/home">
+          <img
+            src={logo}
+            width="160"
+            height="40"
+            className="d-inline-block align-top"
+            alt="Logo"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            <NavDropdown
+              title={<HoverNavDropdownTitle>Humanprogress</HoverNavDropdownTitle>}
+              id="basic-nav-dropdown"
+              style={{ fontSize: '18px', color: '#000', marginRight: '15px'}}
+            >
+              <CustomNavDropdownItem href="/human">Om Humanprogress</CustomNavDropdownItem>
+              <CustomNavDropdownItem href="#action/3.6">Ledord & Kärnvärden</CustomNavDropdownItem>
+              <CustomNavDropdownItem href="#action/3.7">Läkepedagogik & Socialterapi</CustomNavDropdownItem>
+              <CustomNavDropdownItem href="#action/3.8">Vänorganisationer</CustomNavDropdownItem>
+              <CustomNavDropdownItem href="#action/3.9">Arbeta hos oss</CustomNavDropdownItem>
+            </NavDropdown>
+            <NavDropdown
+              title={<HoverNavDropdownTitle>Våra Boenden</HoverNavDropdownTitle>}
+              id="basic-nav-dropdown"
+              style={{ fontSize: '18px', color: '#000', marginRight: '15px' }}
+            >
+              <CustomNavDropdownItem href="#action/3.1">Ungdomsboende - Utsikten</CustomNavDropdownItem>
+              <CustomNavDropdownItem href="#action/3.2">Serviceboende - Möllan</CustomNavDropdownItem>
+              <CustomNavDropdownItem href="#action/3.3">Gruppbostad - Stinsen</CustomNavDropdownItem>
+            </NavDropdown>
+            <NavLink href="/contact">Kontakt</NavLink>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Navbar;
+// Custom component to handle hover effect for NavDropdown title
+const HoverNavDropdownTitle = ({ children }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        color: isHovered ? '#ff1493' : '#000', // Stronger pink color
+        transition: 'color 0.3s',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      <span style={{ marginRight: '5px' }}>{children}</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+        style={{ transform: isHovered ? 'rotate(180deg)' : 'rotate(0deg)', marginLeft: 'auto' }}
+      >
+        <path
+          fillRule="evenodd"
+          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 1 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+        />
+      </svg>
+    </div>
+  );
+};
+
+// Custom component to handle hover effect for NavLinks
+const NavLink = ({ href, children }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  return (
+    <Nav.Link
+      href={href}
+      style={{
+        fontSize: '18px',
+        color: isHovered ? '#ff1493' : '#000', // Stronger pink color
+        marginRight: '15px',
+        transition: 'color 0.3s',
+        textDecoration: 'none',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {children}
+    </Nav.Link>
+  );
+};
+
+// Custom component for NavDropdown.Item to apply hover effect
+const CustomNavDropdownItem = ({ href, children }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  return (
+    <NavDropdown.Item
+      href={href}
+      style={{
+        backgroundColor: isHovered ? '#ff1493' : '#fff', // Pink background color
+        color: isHovered ? '#fff' : '#000', // White text color on hover
+        transition: 'background-color 0.3s, color 0.3s',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {children}
+    </NavDropdown.Item>
+  );
+};
+
+// Inline CSS to hide default Bootstrap arrows
+const style = document.createElement('style');
+style.innerHTML = `
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+`;
+document.head.appendChild(style);
+
+export default MyNavbar;
