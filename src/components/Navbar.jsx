@@ -5,6 +5,13 @@ import logo from '../assets/humanprogress.png'; // Ensure this image has a trans
 
 // Define the Navbar component
 const MyNavbar = () => {
+  const linkStyle = {
+    fontSize: '18px',
+    color: '#000',
+    marginRight: '15px',
+    fontWeight: '600'
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -23,22 +30,23 @@ const MyNavbar = () => {
             <NavDropdown
               title={<HoverNavDropdownTitle>Humanprogress</HoverNavDropdownTitle>}
               id="basic-nav-dropdown"
-              style={{ fontSize: '18px', color: '#000', marginRight: '15px'}}
+              style={linkStyle}
             >
-              <CustomNavDropdownItem href="/human">Om Humanprogress</CustomNavDropdownItem>
+              <CustomNavDropdownItem href="/about">Om Humanprogress</CustomNavDropdownItem>
               <CustomNavDropdownItem href="#action/3.6">Ledord & Kärnvärden</CustomNavDropdownItem>
               <CustomNavDropdownItem href="#action/3.7">Läkepedagogik & Socialterapi</CustomNavDropdownItem>
               <CustomNavDropdownItem href="#action/3.8">Vänorganisationer</CustomNavDropdownItem>
               <CustomNavDropdownItem href="#action/3.9">Arbeta hos oss</CustomNavDropdownItem>
             </NavDropdown>
             <NavDropdown
-              title={<HoverNavDropdownTitle>Våra Boenden</HoverNavDropdownTitle>}
+              title={<HoverNavDropdownTitle>Våra boenden</HoverNavDropdownTitle>}
               id="basic-nav-dropdown"
-              style={{ fontSize: '18px', color: '#000', marginRight: '15px' }}
+              style={linkStyle}
             >
               <CustomNavDropdownItem href="#action/3.1">Ungdomsboende - Utsikten</CustomNavDropdownItem>
               <CustomNavDropdownItem href="#action/3.2">Serviceboende - Möllan</CustomNavDropdownItem>
               <CustomNavDropdownItem href="#action/3.3">Gruppbostad - Stinsen</CustomNavDropdownItem>
+              <CustomNavDropdownItem href="#action/3.4">Serviceboende - Myrängen</CustomNavDropdownItem>
             </NavDropdown>
             <NavLink href="/contact">Kontakt</NavLink>
           </Nav>
@@ -93,6 +101,7 @@ const NavLink = ({ href, children }) => {
         fontSize: '18px',
         color: isHovered ? '#ff1493' : '#000', // Stronger pink color
         marginRight: '15px',
+        fontWeight: '600', // Ensure font weight is set here
         transition: 'color 0.3s',
         textDecoration: 'none',
       }}

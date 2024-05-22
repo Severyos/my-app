@@ -5,7 +5,6 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
-import Humanprogress from './components/Humanprogress'
 import Boende from './components/Boende'
 
 const App = () => {
@@ -17,7 +16,6 @@ const App = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/human" element={<Humanprogress />} />
             <Route path="/boende" element={<Boende />} />
           </Routes>
         </div>
